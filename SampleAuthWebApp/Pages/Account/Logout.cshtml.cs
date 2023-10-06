@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SampleAuthApp.API.Pages.Account
+namespace SampleAuthWebApp.Pages.Account
 {
     public class LogoutModel : PageModel
     {

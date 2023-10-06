@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace SampleAuthApp.API.Authorization
+namespace SampleAuthWebApp.Authorization
 {
     // this is a custom requirement that is a new claim for the user
     public class HRManagerProbationRequirement :IAuthorizationRequirement

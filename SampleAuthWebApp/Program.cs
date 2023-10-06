@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
-using SampleAuthApp.API.Authorization;
+using SampleAuthWebApp.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +24,11 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, HRManagerProbationRequirementHandler>();
+
+builder.Services.AddHttpClient("MyWebAPI", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7024/");
+});
 
 var app = builder.Build();
 

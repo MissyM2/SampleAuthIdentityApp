@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SampleAuthApp.API.Pages
+namespace SampleAuthWebApp.Pages
 {
     [Authorize]
     public class IndexModel : PageModel

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Security.Claims;
 
-namespace SampleAuthApp.API.Pages.Account
+namespace SampleAuthWebApp.Pages.Account
 {
     public class LoginModel : PageModel
     {
