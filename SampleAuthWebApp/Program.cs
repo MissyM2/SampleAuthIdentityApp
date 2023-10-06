@@ -30,6 +30,15 @@ builder.Services.AddHttpClient("MyWebAPI", client =>
     client.BaseAddress = new Uri("https://localhost:7024/");
 });
 
+
+// adding session which is sustained by the cookie;
+builder.Services.AddSession(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 
@@ -48,6 +57,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 
