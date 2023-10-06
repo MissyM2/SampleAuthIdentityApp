@@ -29,7 +29,8 @@ namespace SampleAuthApp.API.Pages.Account
                     new Claim(ClaimTypes.Email, "admin@mywebsite.com"),
                     new Claim("Department", "HR"),
                     new Claim("Admin", "True"),
-                    new Claim("Manager", "True")
+                    new Claim("Manager", "True"),
+                    new Claim("EmploymentDate", "2023-05-01")
                 };
 
                 var identity = new ClaimsIdentity(claims, "MyCookieAuth");
