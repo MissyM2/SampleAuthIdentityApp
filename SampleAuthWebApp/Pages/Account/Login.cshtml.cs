@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SampleAuthWebApp.Authorization;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Security.Claims;
@@ -50,19 +51,5 @@ namespace SampleAuthWebApp.Pages.Account
 
             return Page();
         }
-    }
-
-    public class Credential
-    {
-        [Required]
-        [Display(Description = "User Name")]
-        public string UserName { get; set; } = string.Empty;
-
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; } = string.Empty;
-
-        [Display(Name = "Remember Me")]
-        public bool RememberMe { get; set; }
     }
 }
