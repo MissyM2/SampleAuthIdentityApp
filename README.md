@@ -8,10 +8,15 @@ This app is an .net Web API, version 7.0, with a webapp UI for the purposes of d
 ### Structure and Libraries
 Solution Name: SampleAuthIdentityWebApp
 
-Projects:
+Projects/Libraries:
 - SampleAuthIdentityWebApp
-  - Microsoft.AspNetCore.Http.Extensions
-  - Newtonsoft.Json
+  - UI functions: Identity.UI : covers the UI elements of Identity
+  - Functionalities: Identity : covers the functionalities of the auth/auth process
+  - DataStore functions: Identity.EntityFrameworkCore : covers the data store, which is the in-memory representation of the database; stores all the db schema objects and c# classes
+  - SqlServer: EntityFrameworkCore.SqlServer
+  - Migrations: In order to take in-memory representation and create corresponding objects in the db
+       - EntityFrameworkCore.Design
+       - Migrations: EntityFrameworkCore.Tools
     
 - SampleAuthIdentityWebAPI
    - Microsoft.AspNetCore.Authentication.JwtBearer
