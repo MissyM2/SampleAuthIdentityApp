@@ -9,11 +9,11 @@ This app is an .net Web API, version 7.0, with a webapp UI for the purposes of d
 Solution Name: SampleAuthIdentityWebApp
 
 Projects:
-- SampleAuthWebApp
+- SampleAuthIdentityWebApp
   - Microsoft.AspNetCore.Http.Extensions
   - Newtonsoft.Json
     
-- SampleAuthWebAPI
+- SampleAuthIdentityWebAPI
    - Microsoft.AspNetCore.Authentication.JwtBearer
    - Microsoft.AspNetCore.OpenApi
    - Swashbuckle.AspNetCore
