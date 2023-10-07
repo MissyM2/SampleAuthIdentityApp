@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SampleAuthWebApp.Pages
+namespace SampleAuthIdentityWebApp.Pages
 {
     public class PrivacyModel : PageModel
     {

@@ -1,46 +1,43 @@
-using Microsoft.AspNetCore.Authorization;
-using SampleAuthWebApp.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SampleAuthIdentityWebApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// AddCookie does the encryption and serialization for the cookie: authentication scheme and authentication name must match
-builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.Cookie.Name = "MyCookieAuth";
-    options.ExpireTimeSpan = TimeSpan.FromSeconds(200);
-});
-
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Admin"));
-    options.AddPolicy("MustBelongToHRDepartment", policy => policy.RequireClaim("Department", "HR"));
-    options.AddPolicy("HRManagerOnly", policy => policy
-        .RequireClaim("Department", "HR")
-        .RequireClaim("Manager")
-        .Requirements.Add(new HRManagerProbationRequirement(3)));
-});
-
-builder.Services.AddSingleton<IAuthorizationHandler, HRManagerProbationRequirementHandler>();
-
-builder.Services.AddHttpClient("MyWebAPI", client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7024/");
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 
 
-// adding session which is sustained by the cookie;
-builder.Services.AddSession(options =>
+// completes the di for Identity; must tell the Identity system which Db (dbContext) it will use
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
-    options.Cookie.HttpOnly = true;
-    options.IdleTimeout = TimeSpan.FromMinutes(20);
-    options.Cookie.IsEssential = true;
+
+    // many other things can be configured here
+    options.Password.RequiredLength = 8;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+
+    options.User.RequireUniqueEmail = true;
+})
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    // many other things can be configured here
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+
 });
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -58,7 +55,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseSession();
 
 app.MapRazorPages();
 
