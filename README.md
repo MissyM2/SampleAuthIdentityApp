@@ -10,7 +10,7 @@ Solution Name: SampleAuthIdentityWebApp
 
 Projects/Libraries:
 - SampleAuthIdentityWebApp
-  - UI functions: Identity.UI : covers the UI elements of Identity
+  - UI functions: Identity.UI : covers the UI elements of Identity; utilizes all scaffolded interfaces:  NOT USED HERE because this is a demonstration purpose.  In most circumstances, you will use this library
   - Functionalities: Identity : covers the functionalities of the auth/auth process
   - DataStore functions: Identity.EntityFrameworkCore : covers the data store, which is the in-memory representation of the database; stores all the db schema objects and c# classes
   - SqlServer: EntityFrameworkCore.SqlServer
