@@ -1,21 +1,27 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SampleAuthIdentityWebApp.Services;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
+using System.Net.Mail;
 
 namespace SampleAuthIdentityWebApp.Pages.Account
 {
     public class RegisterModel : PageModel
     {
         private readonly UserManager<IdentityUser> userManager;
+        private readonly IEmailService emailService;
 
         [BindProperty]
         public RegisterViewModel RegisterViewModel { get; set; } = new RegisterViewModel();
 
         // we have already dependency injected Identity into the AspNetCore so we can grab an instance of it through the constructor
-        public RegisterModel(UserManager<IdentityUser> userManager)
+        public RegisterModel(UserManager<IdentityUser> userManager,
+            IEmailService emailService)
         {
             this.userManager = userManager;
+            this.emailService = emailService;
         }
         public void OnGet()
         {
@@ -42,12 +48,17 @@ namespace SampleAuthIdentityWebApp.Pages.Account
             {
                 var confirmationToken = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                // this is a dry run; we are sending the confirmation token to a confirmation page without sending the email 
-                // so we don't have to configure email server stuff, yet.
-                return Redirect(Url.PageLink(pageName: "/Account/ConfirmEmail",
-                    values: new { userId = user.Id, token = confirmationToken }) ?? "");
+                var confirmationLink = Url.PageLink(pageName: "/Account/ConfirmEmail",
+                    values: new { userId = user.Id, token = confirmationToken });
 
-                //return RedirectToPage("/Account/Login");
+                // for sending out the email, we need an smtp server
+
+                await emailService.SendAsync("missymaloney1@gmail.com",
+                    user.Email,
+                    "Please confirm email",
+                    $"Please click on this link to confirm your email address: {confirmationLink}");
+
+                return RedirectToPage("/Account/Login");
             }
             else
             {

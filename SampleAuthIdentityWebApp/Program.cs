@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SampleAuthIdentityWebApp.Data;
+using SampleAuthIdentityWebApp.Services;
+using SampleAuthIdentityWebApp.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +40,14 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
 
 });
+
+// using the options pattern of the Configure method to setup smtp access for the email confirmation
+// builder.Configuration... gets us access to the appsettings.json
+builder.Services.Configure<SmtpSetting>(builder.Configuration.GetSection("SMTP"));
+
+// this is a singleton because it is a service shared everywhere; it doesn't have to be recreated each time it is being used
+// you can use transient (Singleton saves a little bit of resource
+builder.Services.AddSingleton<IEmailService, EmailService>();
 
 var app = builder.Build();
 
