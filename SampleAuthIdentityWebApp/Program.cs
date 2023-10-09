@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SampleAuthIdentityWebApp.Data;
+using SampleAuthIdentityWebApp.Data.Account;
 using SampleAuthIdentityWebApp.Services;
 using SampleAuthIdentityWebApp.Settings;
 
@@ -16,7 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 
 // completes the di for Identity; must tell the Identity system which Db (dbContext) it will use
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
 
     // many other things can be configured here

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SampleAuthIdentityWebApp.Data.Account;
 
 namespace SampleAuthIdentityWebApp.Pages.Account
 {
@@ -9,9 +10,9 @@ namespace SampleAuthIdentityWebApp.Pages.Account
         [BindProperty]
         public string Message { get; set; } = string.Empty; 
 
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<User> userManager;
 
-        public ConfirmEmailModel(UserManager<IdentityUser> userManager)
+        public ConfirmEmailModel(UserManager<User> userManager)
         {
             this.userManager = userManager;
         }
