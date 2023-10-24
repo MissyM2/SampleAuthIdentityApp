@@ -1,5 +1,5 @@
 # SampleAuthIdentityWebApp
-.NET Core, .NET MAUI, API, Front End, Mobile, Community Toolkit
+.NET Core, WebAPI, frontend
 
 ### Overview
 
